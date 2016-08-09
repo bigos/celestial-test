@@ -1,3 +1,7 @@
 <h2>statement</h2>
 
-<%= @bill['statement'].inspect %>
+<% @bill['statement'].each do |k,v| %>
+  <p>
+    <%= k %>:&nbsp;<%= v.class == String ? v : v.inspect %>
+  </p>
+<% end %>
