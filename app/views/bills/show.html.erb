@@ -1,2 +1,5 @@
-<h1>Bills#show</h1>
-<p>Find me in app/views/bills/show.html.erb</p>
+<% @bill.keys.each do |key| %>
+  <p>
+    <%= render key.underscore %>
+  </p>
+<% end %>
