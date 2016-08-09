@@ -66,6 +66,9 @@ Rails.application.configure do
   # require 'syslog/logger'
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
+  # trying to make it work on Heroku
+  config.secret_key_base = ENV['SECRET_KEY_BASE']
+
   if ENV["RAILS_LOG_TO_STDOUT"].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
