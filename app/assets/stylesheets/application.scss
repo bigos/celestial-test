@@ -1,4 +1,5 @@
 // Custom bootstrap variables must be set or imported before bootstrap itself.
+@import "bootstrap-sprockets";
 @import "bootstrap";
 
 /*
@@ -16,3 +17,8 @@
 
 
  */
+
+
+td,th{padding: 0.25em;}
+
+td.cost, td.table-total{text-align: right;}

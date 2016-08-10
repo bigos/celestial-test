@@ -9,6 +9,26 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class="container navbar">
+      <h1>Your last bill</h1>
+    </div>
+    <div class="container">
+      <%= yield %>
+    </div>
+    <div class="container footer">
+      <p class="text-muted text-center">
+        The End
+      </p>
+    </div>
+    <ul class="nav pull-right scroll-top">
+      <li>
+        <a title="Scroll to top" href="#">
+          <i class="glyphicon glyphicon-chevron-up"></i>
+        </a>
+      </li>
+    </ul>
+
+
+
   </body>
 </html>

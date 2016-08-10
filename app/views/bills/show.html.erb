@@ -1,7 +1,12 @@
 <div>
   <% @bill.keys.each do |key| %>
-    <p>
-      <%= render key.underscore %>
-    </p>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= key.underscore.gsub('_', ' ').capitalize %></h3>
+      </div>
+      <div class="panel-body">
+        <%= render key.underscore %>
+      </div>
+    </div>
   <% end %>
 </div>

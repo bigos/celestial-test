@@ -5,11 +5,11 @@ module BillsHelper
       arg
     else # date range
       output_html = ''
-      output_html << 'from: '
+      output_html << 'from:&nbsp;'
       output_html << arg['from']
-      output_html << ' to: '
+      output_html << ' to:&nbsp;'
       output_html << arg['to']
-      output_html
+      output_html.html_safe
     end
   end
 
@@ -18,7 +18,7 @@ module BillsHelper
     output_html = ''
     hashes = []
     h.keys[0..-2].each do |k|
-      hashes << h[k].collect{|x| {type: k}.merge x}
+      hashes << h[k].collect{|x| {type: k.underscore.gsub('_',' ')}.merge x}
     end
     final_hash = {'shop' => hashes.flatten, 'total' => h['total']}
     # after transforming the problem we can use flat table
@@ -45,7 +45,7 @@ module BillsHelper
 
   def table_head(data_keys)
     content_tag(:thead) do
-      data_keys.collect{|x| content_tag(:td, x)}.join.html_safe
+      data_keys.collect{|x| content_tag(:th, x)}.join.html_safe
     end
   end
 
@@ -64,7 +64,12 @@ module BillsHelper
   def row_cells(h, data_keys)
     output_html = ''
     data_keys.each do |k|
-      output_html << content_tag(:td, h[k])
+
+      if k == 'cost'
+        output_html << content_tag(:td, sprintf("%.2f",h[k]), class: k)
+      else
+        output_html << content_tag(:td, h[k])
+      end
     end
     output_html.html_safe
   end
@@ -72,8 +77,8 @@ module BillsHelper
   def table_foot(h, data_keys)
     content_tag(:tfoot) do
       content_tag(:tr) do
-        concat content_tag(:td,'total', {class: :table_total, colspan: data_keys.length-1})
-        concat content_tag(:td, h['total']).html_safe
+        concat content_tag(:td,'total', {class: 'table-total', colspan: data_keys.length-1})
+        concat content_tag(:td, h['total'], class: ['table-total', :cost]).html_safe
       end
     end
   end
