@@ -2,6 +2,6 @@
 
 <% @bill['statement'].each do |k,v| %>
   <p>
-    <%= k %>:&nbsp;<%= v.class == String ? v : v.inspect %>
+    <%= k %>&nbsp;<%= v.class == String ? v : date_range_hash(v) %>
   </p>
 <% end %>
