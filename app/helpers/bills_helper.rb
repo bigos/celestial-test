@@ -13,25 +13,15 @@ module BillsHelper
     end
   end
 
-  # TODO: finish me
-  # need to have extra rows for table sections
+  # it's not nested bu typed
   def nested_table(h)
     output_html = ''
-    # output_html << h.inspect
-    # something like
-
     hashes = []
     h.keys[0..-2].each do |k|
       hashes << h[k].collect{|x| {type: k}.merge x}
     end
-
-    # output_html << hashes.inspect
-
-    # output_html << '------ transformed hash ---------------'
     final_hash = {'shop' => hashes.flatten, 'total' => h['total']}
-
-    # output_html << final_hash.to_s
-    # output_html << '------ ***************** ---------------'
+    # after transforming the problem we can use flat table
     output_html << flat_table(final_hash)
     output_html.html_safe
   end
@@ -46,7 +36,7 @@ module BillsHelper
       content_tag(:table, border: 2) do
         concat table_head(data_keys)
         concat table_data(h)
-        concat table_foot(h)
+        concat table_foot(h, data_keys)
       end
     else
       raise 'unexpected table data'
@@ -79,18 +69,12 @@ module BillsHelper
     output_html.html_safe
   end
 
-  def table_foot(h)
+  def table_foot(h, data_keys)
     content_tag(:tfoot) do
       content_tag(:tr) do
-        concat content_tag(:td,'total', {class: :table_total, colspan: 2} )
+        concat content_tag(:td,'total', {class: :table_total, colspan: data_keys.length-1})
         concat content_tag(:td, h['total']).html_safe
       end
     end
   end
 end
-
-# concat content_tag(:table) do
-#   content_tag(:th,
-#               data_keys.collect{|x| "<td>#{x}</td>\n"}.join)
-
-# end
