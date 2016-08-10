@@ -17,8 +17,7 @@ module BillsHelper
   # need to have extra rows for table sections
   def nested_table(h)
     output_html = ''
-    output_html << h.inspect
-    output_html << '---------------------'
+    # output_html << h.inspect
     # something like
 
     hashes = []
@@ -26,12 +25,14 @@ module BillsHelper
       hashes << h[k].collect{|x| {type: k}.merge x}
     end
 
-    output_html << hashes.inspect
+    # output_html << hashes.inspect
 
-    output_html << '------ transformed hash ---------------'
-    final_hash = {'shop' => hashes, 'total' => h['total']}
+    # output_html << '------ transformed hash ---------------'
+    final_hash = {'shop' => hashes.flatten, 'total' => h['total']}
 
-    output_html << final_hash.to_s
+    # output_html << final_hash.to_s
+    # output_html << '------ ***************** ---------------'
+    output_html << flat_table(final_hash)
     output_html.html_safe
   end
 
