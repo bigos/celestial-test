@@ -18,7 +18,13 @@
 
  */
 
-
+th{background: #ddd;}
 td,th{padding: 0.25em;}
 
-td.cost, td.table-total{text-align: right;}
+.cost, td.table-total{text-align: right;}
+.cost{width: 6em;}
+.table-total{font-weight: bold;}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: #ffc;
+}

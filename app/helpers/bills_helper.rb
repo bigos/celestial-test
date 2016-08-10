@@ -33,7 +33,7 @@ module BillsHelper
       # I do not know anything about the system so I use defensive programming
       data_keys = h[data_name].collect(&:keys).flatten.uniq
 
-      content_tag(:table, border: 2) do
+      content_tag(:table, {class: ['table', 'table-striped', 'table-bordered', 'table-hover'] }) do
         concat table_head(data_keys)
         concat table_data(h)
         concat table_foot(h, data_keys)
@@ -44,8 +44,8 @@ module BillsHelper
   end
 
   def table_head(data_keys)
-    content_tag(:thead) do
-      data_keys.collect{|x| content_tag(:th, x)}.join.html_safe
+    content_tag(:thead, class: 'thead-inverse') do
+      data_keys.collect{|x| content_tag(:th, x, class: (x == 'cost' ? 'cost' : nil))}.join.html_safe
     end
   end
 
@@ -78,7 +78,7 @@ module BillsHelper
     content_tag(:tfoot) do
       content_tag(:tr) do
         concat content_tag(:td,'total', {class: 'table-total', colspan: data_keys.length-1})
-        concat content_tag(:td, h['total'], class: ['table-total', :cost]).html_safe
+        concat content_tag(:td,sprintf('%.2f', h['total']), class: ['table-total', :cost]).html_safe
       end
     end
   end
